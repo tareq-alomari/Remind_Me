@@ -227,8 +227,13 @@ function App() {
 
   const stopRecording = () => {
     if (mediaRecorder && isRecording) {
-      mediaRecorder.stop();
-      setIsRecording(false);
+      try {
+        mediaRecorder.stop();
+        setIsRecording(false);
+      } catch (error) {
+        console.error('Error stopping recording:', error);
+        setIsRecording(false);
+      }
     }
   };
 
