@@ -170,9 +170,9 @@ frontend:
     implemented: true
     working: false
     file: "/app/frontend/src/App.js"
-    stuck_count: 1
+    stuck_count: 2
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
@@ -180,6 +180,9 @@ frontend:
         - working: false
           agent: "user"
           comment: "User reports: تسجيل المهام الصوتية لا تعمل (Voice task recording is not working)"
+        - working: false
+          agent: "testing"
+          comment: "CRITICAL ISSUE IDENTIFIED: Voice recording fails with 'NotFoundError: Requested device not found' when clicking record button. The MediaRecorder API cannot access microphone device even with permissions granted. UI elements work correctly (modal opens, voice tab activates, record button visible), but getUserMedia() fails to find audio input device. This is a browser/environment limitation preventing MediaRecorder from accessing microphone hardware. Backend API integration works fine. Root cause: MediaRecorder API incompatible with current browser environment."
 
   - task: "Bilingual Arabic/English interface"
     implemented: true
