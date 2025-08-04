@@ -542,6 +542,84 @@ body {
   font-weight: 600;
 }
 
+/* Engineer Credits Footer */
+.engineer-credits {
+  margin-top: 4rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+}
+
+.credits-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: white;
+  flex-wrap: wrap;
+}
+
+.engineer-icon {
+  width: 2rem;
+  height: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.credits-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.credits-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.engineer-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+}
+
+.year-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-weight: 700;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* RTL Support for Credits */
+.App.rtl .credits-content {
+  flex-direction: row-reverse;
+}
+
+.App.rtl .credits-text {
+  align-items: center;
+}
+
+/* Responsive Design for Credits */
+@media (max-width: 768px) {
+  .credits-content {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  
+  .engineer-name {
+    font-size: 1.1rem;
+  }
+  
+  .engineer-credits {
+    margin-top: 2rem;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .App {
