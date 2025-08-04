@@ -77,7 +77,9 @@ const translations = {
     },
     noNotes: "لا توجد ملاحظات بعد. أنشئ ملاحظتك الأولى!",
     permissionDenied: "تم رفض إذن الميكروفون",
-    notSupported: "التسجيل الصوتي غير مدعوم"
+    notSupported: "التسجيل الصوتي غير مدعوم",
+    audioInstructions: "للتسجيل الصوتي، تأكد من:\n• وجود ميكروفون متصل\n• السماح للموقع باستخدام الميكروفون\n• استخدام متصفح حديث (Chrome, Firefox, Safari)",
+    testAudio: "اختبار الصوت"
   }
 };
 
