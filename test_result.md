@@ -231,16 +231,18 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Note CRUD operations"
-    - "Voice recording storage as base64"
     - "Voice recording with Web Audio API"
-    - "Bilingual Arabic/English interface"
-  stuck_tasks: []
-  test_all: true
-  test_priority: "high_first"
+  stuck_tasks:
+    - "Voice recording with Web Audio API"
+  test_all: false
+  test_priority: "stuck_first"
 
 agent_communication:
     - agent: "main"
       message: "Completed full implementation of Arabic note-taking app. Ready for backend testing first, then frontend testing. All core features implemented: text/audio notes, Arabic/English UI, voice recording, reminders, categories, and beautiful purple theme."
+    - agent: "user"
+      message: "تسجيل المهام الصوتية لا تعمل (Voice task recording is not working) - CRITICAL ISSUE"
+    - agent: "main"
+      message: "User reported voice recording not working. Need to investigate and fix MediaRecorder implementation, permissions, and base64 conversion. Priority: HIGH"
     - agent: "testing"
       message: "✅ BACKEND TESTING COMPLETE - ALL TESTS PASSED! Comprehensive testing performed on all 4 high-priority backend tasks. Created backend_test.py with realistic Arabic/English test data. All CRUD operations, base64 audio storage, statistics endpoint, and reminder system working perfectly. No critical issues found. Backend is production-ready. 4/4 tests passed with 0 errors."
