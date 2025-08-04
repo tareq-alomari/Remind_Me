@@ -238,13 +238,42 @@ function App() {
   };
 
   const playAudio = (audioData) => {
-    if (currentAudio) {
-      currentAudio.pause();
+    try {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+      
+      // Clean the base64 data if it has data URL prefix
+      const cleanAudioData = audioData.includes(',') ? audioData.split(',')[1] : audioData;
+      const audio = new Audio(`data:audio/webm;base64,${cleanAudioData}`);
+      
+      audio.onload = () => {
+        console.log('Audio loaded successfully');
+      };
+      
+      audio.onerror = (error) => {
+        console.error('Error playing audio:', error);
+        // Try alternative format
+        const alternativeAudio = new Audio(`data:audio/mp4;base64,${cleanAudioData}`);
+        alternativeAudio.play().catch(altError => {
+          console.error('Alternative audio format also failed:', altError);
+          alert(language === 'ar' ? 'لا يمكن تشغيل التسجيل الصوتي' : 'Cannot play audio recording');
+        });
+        setCurrentAudio(alternativeAudio);
+        return;
+      };
+      
+      audio.play().catch(error => {
+        console.error('Error playing audio:', error);
+        alert(language === 'ar' ? 'لا يمكن تشغيل التسجيل الصوتي' : 'Cannot play audio recording');
+      });
+      
+      setCurrentAudio(audio);
+    } catch (error) {
+      console.error('Error in playAudio function:', error);
+      alert(language === 'ar' ? 'خطأ في تشغيل الصوت' : 'Error playing audio');
     }
-    
-    const audio = new Audio(`data:audio/webm;base64,${audioData}`);
-    audio.play();
-    setCurrentAudio(audio);
   };
 
   const handleSubmit = async (e) => {
