@@ -442,6 +442,9 @@ function App() {
                 />
               ) : (
                 <div className="audio-recording">
+                  <div className="audio-instructions">
+                    <p>{t.audioInstructions}</p>
+                  </div>
                   {!isRecording ? (
                     <button
                       type="button"
@@ -466,16 +469,21 @@ function App() {
                     </button>
                   )}
                   {formData.audio_data && (
-                    <button
-                      type="button"
-                      onClick={() => playAudio(formData.audio_data)}
-                      className="play-btn"
-                    >
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
-                      </svg>
-                      {t.play}
-                    </button>
+                    <div className="audio-preview">
+                      <button
+                        type="button"
+                        onClick={() => playAudio(formData.audio_data)}
+                        className="play-btn"
+                      >
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
+                        </svg>
+                        {t.testAudio}
+                      </button>
+                      <span className="audio-duration">
+                        {formData.audio_duration}s
+                      </span>
+                    </div>
                   )}
                 </div>
               )}
