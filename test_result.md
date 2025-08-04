@@ -168,39 +168,48 @@ backend:
 frontend:
   - task: "Voice recording with Web Audio API"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/frontend/src/App.js"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
     needs_retesting: true
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Implemented MediaRecorder API for voice recording, stores as base64, includes play functionality"
+        - working: false
+          agent: "user"
+          comment: "User reports: تسجيل المهام الصوتية لا تعمل (Voice task recording is not working)"
 
   - task: "Bilingual Arabic/English interface"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/App.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Complete translation system with RTL support for Arabic, language toggle button"
+        - working: true
+          agent: "user"
+          comment: "Language switching confirmed working by user"
 
   - task: "Note management interface"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/App.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Create, view, edit, delete notes. Category filtering, completion status, beautiful purple theme"
+        - working: true
+          agent: "user"
+          comment: "UI interface confirmed working by user interaction"
 
   - task: "Browser notification system"
     implemented: true
