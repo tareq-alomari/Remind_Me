@@ -183,6 +183,9 @@ frontend:
         - working: false
           agent: "testing"
           comment: "CRITICAL ISSUE IDENTIFIED: Voice recording fails with 'NotFoundError: Requested device not found' when clicking record button. The MediaRecorder API cannot access microphone device even with permissions granted. UI elements work correctly (modal opens, voice tab activates, record button visible), but getUserMedia() fails to find audio input device. This is a browser/environment limitation preventing MediaRecorder from accessing microphone hardware. Backend API integration works fine. Root cause: MediaRecorder API incompatible with current browser environment."
+        - working: false
+          agent: "testing"
+          comment: "ENHANCED VOICE RECORDING TESTED - IMPROVEMENTS CONFIRMED BUT CORE ISSUE PERSISTS: ✅ All UI enhancements working perfectly: Enhanced Arabic audio instructions displayed clearly, voice note tab switching works flawlessly, improved error handling code is in place, MIME type detection implemented (webm/mp4 fallbacks), enhanced audio preview section ready, better recording cleanup implemented. ❌ CORE ISSUE UNCHANGED: Still fails with 'NotFoundError: Requested device not found' - this is a browser/environment hardware limitation, not a code issue. The enhanced implementation is excellent but cannot overcome the fundamental microphone access restriction in the testing environment."
 
   - task: "Bilingual Arabic/English interface"
     implemented: true
