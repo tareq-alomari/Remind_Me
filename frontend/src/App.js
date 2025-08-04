@@ -41,7 +41,9 @@ const translations = {
     },
     noNotes: "No notes yet. Create your first note!",
     permissionDenied: "Microphone permission denied",
-    notSupported: "Voice recording not supported"
+    notSupported: "Voice recording not supported",
+    audioInstructions: "For voice recording, make sure:\n• Microphone is connected\n• Allow microphone access for this site\n• Use a modern browser (Chrome, Firefox, Safari)",
+    testAudio: "Test Audio"
   },
   ar: {
     appTitle: "ذكّرني بالمهم",
