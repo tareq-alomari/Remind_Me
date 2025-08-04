@@ -505,12 +505,12 @@ function App() {
             {language === 'ar' ? (
               <>
                 <span className="credits-label">تطوير وتصميم:</span>
-                <span className="engineer-name">المهندس طارق العمري</span>
+                <span className="engineer-name">مهندس برمجيات: طارق العمري</span>
               </>
             ) : (
               <>
                 <span className="credits-label">Developed & Designed by:</span>
-                <span className="engineer-name">Engineer Tarek Al-Omari</span>
+                <span className="engineer-name">Software Engineer: Tarek Al-Omari</span>
               </>
             )}
           </div>
