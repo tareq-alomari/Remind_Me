@@ -137,8 +137,33 @@ function App() {
 
   const startRecording = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const recorder = new MediaRecorder(stream);
+      // Check if MediaRecorder is supported
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert(language === 'ar' ? 'التسجيل الصوتي غير مدعوم في هذا المتصفح' : 'Audio recording not supported in this browser');
+        return;
+      }
+
+      // Request microphone permission with detailed configuration
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true
+        } 
+      });
+      
+      // Check if MediaRecorder is supported
+      if (!MediaRecorder.isTypeSupported('audio/webm')) {
+        console.log('audio/webm not supported, trying audio/mp4');
+        if (!MediaRecorder.isTypeSupported('audio/mp4')) {
+          console.log('audio/mp4 not supported, trying default');
+        }
+      }
+
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' :
+                      MediaRecorder.isTypeSupported('audio/mp4') ? 'audio/mp4' : '';
+      
+      const recorder = new MediaRecorder(stream, mimeType ? { mimeType } : {});
       
       recorder.ondataavailable = (event) => {
         if (event.data.size > 0) {
@@ -147,28 +172,55 @@ function App() {
       };
 
       recorder.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+        const audioBlob = new Blob(audioChunks, { 
+          type: mimeType || 'audio/webm' 
+        });
         const reader = new FileReader();
         reader.onloadend = () => {
           const base64Audio = reader.result.split(',')[1];
           setFormData(prev => ({
             ...prev,
             audio_data: base64Audio,
-            audio_duration: Math.round(Date.now() / 1000) // Simple duration tracking
+            audio_duration: Math.round((Date.now() - recordingStartTime) / 1000)
           }));
         };
         reader.readAsDataURL(audioBlob);
         
+        // Clean up the stream
         stream.getTracks().forEach(track => track.stop());
       };
 
+      recorder.onerror = (event) => {
+        console.error('Recording error:', event.error);
+        alert(language === 'ar' ? 'حدث خطأ في التسجيل' : 'Recording error occurred');
+        setIsRecording(false);
+      };
+
       setMediaRecorder(recorder);
-      recorder.start();
+      recorder.start(1000); // Collect data every second
       setIsRecording(true);
       setAudioChunks([]);
+      setRecordingStartTime(Date.now());
+      
     } catch (error) {
       console.error('Error starting recording:', error);
-      alert(t.permissionDenied);
+      let errorMessage = t.permissionDenied;
+      
+      if (error.name === 'NotFoundError') {
+        errorMessage = language === 'ar' ? 
+          'لم يتم العثور على ميكروفون. تأكد من توصيل ميكروفون وإعطاء الإذن للمتصفح.' : 
+          'No microphone found. Please ensure a microphone is connected and browser permissions are granted.';
+      } else if (error.name === 'NotAllowedError') {
+        errorMessage = language === 'ar' ? 
+          'تم رفض الوصول للميكروفون. يرجى السماح للموقع باستخدام الميكروفون.' : 
+          'Microphone access denied. Please allow microphone access for this site.';
+      } else if (error.name === 'NotSupportedError') {
+        errorMessage = language === 'ar' ? 
+          'التسجيل الصوتي غير مدعوم في هذا المتصفح. جرب متصفحاً آخر.' : 
+          'Audio recording not supported in this browser. Try a different browser.';
+      }
+      
+      alert(errorMessage);
     }
   };
 
