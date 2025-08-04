@@ -91,6 +91,7 @@ function App() {
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [audioChunks, setAudioChunks] = useState([]);
   const [currentAudio, setCurrentAudio] = useState(null);
+  const [recordingStartTime, setRecordingStartTime] = useState(0);
 
   const t = translations[language];
 
